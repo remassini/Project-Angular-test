@@ -1,5 +1,5 @@
 <div class="form-container">
-    <h2>{{ aluno?.iCodAluno ? 'Editar Aluno' : 'Adicionar Aluno' }}</h2>
+    <h2>{{ aluno.iCodAluno ? 'Editar Aluno' : 'Adicionar Aluno' }}</h2>
     <form (ngSubmit)="salvarAluno()">
       <div class="form-group">
         <label for="sNome">Nome:</label>
@@ -27,7 +27,7 @@
           <option *ngFor="let escola of escolas" [value]="escola.iCodEscola">{{ escola.sDescricao }}</option>
         </select>
       </div>
-      <button type="submit">{{ aluno?.iCodAluno ? 'Salvar' : 'Adicionar' }}</button>
+      <button type="submit">{{ aluno.iCodAluno ? 'Salvar' : 'Adicionar' }}</button>
     </form>
   </div>
   

@@ -1,11 +1,11 @@
 <div class="form-container">
-    <h2>{{ escola?.iCodEscola ? 'Editar Escola' : 'Adicionar Escola' }}</h2>
+    <h2>{{ escola.iCodEscola ? 'Editar Escola' : 'Adicionar Escola' }}</h2>
     <form (ngSubmit)="salvarEscola()">
       <div class="form-group">
         <label for="sDescricao">Descrição:</label>
         <input type="text" id="sDescricao" [(ngModel)]="escola.sDescricao" name="sDescricao" required>
       </div>
-      <button type="submit">{{ escola?.iCodEscola ? 'Salvar' : 'Adicionar' }}</button>
+      <button type="submit">{{ escola.iCodEscola ? 'Salvar' : 'Adicionar' }}</button>
     </form>
   </div>
   
