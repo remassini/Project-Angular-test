@@ -8,6 +8,8 @@ import { Escola } from './escola';
 export class EscolaService {
   private escolas: Escola[] = [
     { iCodEscola: 1, sDescricao: 'Escola A' },
+    { iCodEscola: 2, sDescricao: 'Escola B' },
+    { iCodEscola: 3, sDescricao: 'Escola C' },
     // adicione mais escolas mockadas se necessário
   ];
 
