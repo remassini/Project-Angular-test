@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   login() {
-    if (this.username === 'teste' && this.password === '123') {
+    if (this.username === 'TESTE' && this.password === '123') {
       this.router.navigateByUrl('/alunos');
     } else {
       this.errorMessage = 'Usuário ou senha inválidos';
