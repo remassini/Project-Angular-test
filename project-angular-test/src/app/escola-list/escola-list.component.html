@@ -1,1 +1,23 @@
-<p>escola-list works!</p>
+<div class="container">
+    <h2>Lista de Escolas</h2>
+    <div class="search">
+      <input type="text" placeholder="Pesquisar por descrição" [(ngModel)]="searchText">
+      <button (click)="pesquisar()">Pesquisar</button>
+    </div>
+    <div class="actions">
+      <button (click)="adicionarEscola()">Adicionar Escola</button>
+    </div>
+    <div class="escola-list">
+      <div class="escola" *ngFor="let escola of escolas">
+        <div class="info">
+          <h3>{{ escola.sDescricao }}</h3>
+          <p>Código: {{ escola.iCodEscola }}</p>
+        </div>
+        <div class="actions">
+          <button (click)="editarEscola(escola)">Editar</button>
+          <button (click)="excluirEscola(escola)">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

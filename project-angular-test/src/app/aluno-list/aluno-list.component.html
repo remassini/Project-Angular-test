@@ -1,1 +1,23 @@
-<p>aluno-list works!</p>
+<div class="container">
+    <h2>Lista de Alunos</h2>
+    <div class="search">
+      <input type="text" placeholder="Pesquisar por nome ou CPF" [(ngModel)]="searchText">
+      <button (click)="pesquisar()">Pesquisar</button>
+    </div>
+    <div class="actions">
+      <button (click)="adicionarAluno()">Adicionar Aluno</button>
+    </div>
+    <div class="aluno-list">
+      <div class="aluno" *ngFor="let aluno of alunos">
+        <div class="info">
+          <h3>{{ aluno.sNome }}</h3>
+          <p>CPF: {{ aluno.sCPF }}</p>
+        </div>
+        <div class="actions">
+          <button (click)="editarAluno(aluno)">Editar</button>
+          <button (click)="excluirAluno(aluno)">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
