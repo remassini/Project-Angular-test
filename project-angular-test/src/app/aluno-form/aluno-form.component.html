@@ -1,1 +1,33 @@
-<p>aluno-form works!</p>
+<div class="form-container">
+    <h2>{{ aluno?.iCodAluno ? 'Editar Aluno' : 'Adicionar Aluno' }}</h2>
+    <form (ngSubmit)="salvarAluno()">
+      <div class="form-group">
+        <label for="sNome">Nome:</label>
+        <input type="text" id="sNome" [(ngModel)]="aluno.sNome" name="sNome" required>
+      </div>
+      <div class="form-group">
+        <label for="dNascimento">Data de Nascimento:</label>
+        <input type="date" id="dNascimento" [(ngModel)]="aluno.dNascimento" name="dNascimento" required>
+      </div>
+      <div class="form-group">
+        <label for="sCPF">CPF:</label>
+        <input type="text" id="sCPF" [(ngModel)]="aluno.sCPF" name="sCPF" required>
+      </div>
+      <div class="form-group">
+        <label for="sEndereco">Endereço:</label>
+        <input type="text" id="sEndereco" [(ngModel)]="aluno.sEndereco" name="sEndereco" required>
+      </div>
+      <div class="form-group">
+        <label for="sCelular">Celular:</label>
+        <input type="text" id="sCelular" [(ngModel)]="aluno.sCelular" name="sCelular" required>
+      </div>
+      <div class="form-group">
+        <label for="iCodEscola">Escola:</label>
+        <select id="iCodEscola" [(ngModel)]="aluno.iCodEscola" name="iCodEscola" required>
+          <option *ngFor="let escola of escolas" [value]="escola.iCodEscola">{{ escola.sDescricao }}</option>
+        </select>
+      </div>
+      <button type="submit">{{ aluno?.iCodAluno ? 'Salvar' : 'Adicionar' }}</button>
+    </form>
+  </div>
+  

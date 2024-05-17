@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Escola } from './escola';
 
@@ -7,31 +6,44 @@ import { Escola } from './escola';
   providedIn: 'root'
 })
 export class EscolaService {
-  private escolasUrl = 'api/escolas'; // URL to web api
+  private escolas: Escola[] = [
+    { iCodEscola: 1, sDescricao: 'Escola A' },
+    // adicione mais escolas mockadas se necessário
+  ];
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   getEscolas(): Observable<Escola[]> {
-    return this.http.get<Escola[]>(this.escolasUrl);
+    return of(this.escolas);
   }
 
   pesquisarEscolas(term: string): Observable<Escola[]> {
     if (!term.trim()) {
-      return of([]);
+      return of(this.escolas);
     }
-    return this.http.get<Escola[]>(`${this.escolasUrl}/?sDescricao=${term}`);
+    const searchTerm = term.toLowerCase();
+    const filteredEscolas = this.escolas.filter(escola =>
+      escola.sDescricao.toLowerCase().includes(searchTerm)
+    );
+    return of(filteredEscolas);
   }
 
   adicionarEscola(escola: Escola): Observable<Escola> {
-    return this.http.post<Escola>(this.escolasUrl, escola);
+    escola.iCodEscola = this.escolas.length > 0 ? Math.max(...this.escolas.map(e => e.iCodEscola)) + 1 : 1;
+    this.escolas.push(escola);
+    return of(escola);
   }
 
   editarEscola(escola: Escola): Observable<any> {
-    return this.http.put(this.escolasUrl, escola);
+    const index = this.escolas.findIndex(e => e.iCodEscola === escola.iCodEscola);
+    if (index !== -1) {
+      this.escolas[index] = escola;
+    }
+    return of(escola);
   }
 
   excluirEscola(id: number): Observable<Escola> {
-    const url = `${this.escolasUrl}/${id}`;
-    return this.http.delete<Escola>(url);
+    this.escolas = this.escolas.filter(e => e.iCodEscola !== id);
+    return null as any;
   }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Aluno } from './aluno';
 
@@ -7,31 +6,44 @@ import { Aluno } from './aluno';
   providedIn: 'root'
 })
 export class AlunoService {
-  private alunosUrl = 'api/alunos'; // URL to web api
+  private alunos: Aluno[] = [
+    { iCodAluno: 1, sNome: 'João Silva', dNascimento: new Date('2000-01-01'), sCPF: '123.456.789-00', sEndereco: 'Rua A, 123', sCelular: '1111-1111', iCodEscola: 1 },
+    // adicione mais alunos mockados se necessário
+  ];
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   getAlunos(): Observable<Aluno[]> {
-    return this.http.get<Aluno[]>(this.alunosUrl);
+    return of(this.alunos);
   }
 
   pesquisarAlunos(term: string): Observable<Aluno[]> {
     if (!term.trim()) {
-      return of([]);
+      return of(this.alunos);
     }
-    return this.http.get<Aluno[]>(`${this.alunosUrl}/?sNome=${term}`);
+    const searchTerm = term.toLowerCase();
+    const filteredAlunos = this.alunos.filter(aluno =>
+      aluno.sNome.toLowerCase().includes(searchTerm) || aluno.sCPF.includes(searchTerm)
+    );
+    return of(filteredAlunos);
   }
 
   adicionarAluno(aluno: Aluno): Observable<Aluno> {
-    return this.http.post<Aluno>(this.alunosUrl, aluno);
+    aluno.iCodAluno = this.alunos.length > 0 ? Math.max(...this.alunos.map(a => a.iCodAluno)) + 1 : 1;
+    this.alunos.push(aluno);
+    return of(aluno);
   }
 
   editarAluno(aluno: Aluno): Observable<any> {
-    return this.http.put(this.alunosUrl, aluno);
+    const index = this.alunos.findIndex(a => a.iCodAluno === aluno.iCodAluno);
+    if (index !== -1) {
+      this.alunos[index] = aluno;
+    }
+    return of(aluno);
   }
 
   excluirAluno(id: number): Observable<Aluno> {
-    const url = `${this.alunosUrl}/${id}`;
-    return this.http.delete<Aluno>(url);
+    this.alunos = this.alunos.filter(a => a.iCodAluno !== id);
+    return null as any;
   }
 }
